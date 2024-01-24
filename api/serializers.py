@@ -34,3 +34,13 @@ class SchoolSerializer(serializers.HyperlinkedModelSerializer):
             'financials',
             'date_created'
         ]
+
+
+class FinancialsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Financials
+        fields = [
+            'term_fees_day',
+            'term_fees_boarding'
+        ]
