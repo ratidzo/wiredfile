@@ -17,3 +17,20 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'id', 'username',
             'first_name', 'last_name', 'email', 'school']
+
+
+class SchoolSerializer(serializers.HyperlinkedModelSerializer):
+    financials = serializers.HyperlinkedRelatedField(
+        many=False,
+        read_only=True,
+        view_name='financials-detail'
+    )
+
+    class Meta:
+        model = School
+        fields = [
+            'name',
+            'schoo_type',
+            'financials',
+            'date_created'
+        ]
