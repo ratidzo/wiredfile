@@ -75,3 +75,15 @@ class StudentSerializers(serializers.HyperlinkedModelSerializer):
             'account',
             'guardian'
         ]
+
+
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = [
+            'id',
+            'debit',
+            'credit',
+            'balance',
+            'account_paid'
+        ]
