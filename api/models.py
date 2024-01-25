@@ -54,15 +54,16 @@ class Student(models.Model):
         null=True)  # date the student was enrolled
     first_name = models.CharField(
         max_length=100, null=False)
-    middle_name = models.CharField(default='', blank=True)
+    middle_name = models.CharField(max_length=100, default='', blank=True)
     last_name = models.CharField(max_length=100, null=False)
     date_of_birth = models.DateField(null=False)
-    sex = models.TextField(null=False)
-    mode_of_learning = models.TextField(null=False)
-    address = models.TextField(null=False)
-    grade_at_enrollment = models.TextField(null=False)
-    student_class = models.TextField(null=False)
-    student_rank = models.TextField(default=constants.DEFAULT_STUDENT_RANK)
+    sex = models.CharField(null=False, max_length=20)
+    mode = models.CharField(max_length="20", null=False)
+    address = models.CharField(max_length=100, null=False)
+    grade_at_enrol = models.CharField(max_length=20, null=False)
+    student_class = models.CharField(max_length=20, null=False)
+    student_rank = models.CharField(
+        max_length=20, default=constants.DEFAULT_STUDENT_RANK)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
