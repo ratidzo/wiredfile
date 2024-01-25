@@ -5,6 +5,12 @@ from .import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
+router.register(r'user', views.UserViewSet, basename="user")
+router.register(r'school', views.SchoolViewSet, basename="school")
+router.register(r'students', views.StudentViewSet, basename="students")
+router.register(r'account', views.AccountViewSet, basename="account")
+router.register(r'guardian', views.GuardianViewSet, basename="guardian")
+router.register(r'financials', views.FinancialsViewSet, basename="financials")
 urlpatterns = [
     path('', include(router.urls))
 ]
