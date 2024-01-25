@@ -87,3 +87,17 @@ class AccountSerializer(serializers.ModelSerializer):
             'balance',
             'account_paid'
         ]
+
+
+class GuardianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guardian
+        fields = [
+            'id',
+            'title',
+            'first_name',
+            'last_name',
+            'relationship',
+            'phone',
+            'email'
+        ]
