@@ -31,8 +31,8 @@ class Financials(models.Model):
         to="School", related_name='financials', on_delete=models.CASCADE
     )
     # We store amounts as integers in cents.
-    term_fees_day = models.IntegerField(default=0)
-    term_fees_boarding = models.IntegerField(default=0)
+    term_fee_day = models.IntegerField(default=0)
+    term_fee_boarding = models.IntegerField(default=0)
 
     def __str__(self):
         return "school financials"
@@ -58,7 +58,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100, null=False)
     date_of_birth = models.DateField(null=False)
     sex = models.CharField(null=False, max_length=20)
-    mode = models.CharField(max_length="20", null=False)
+    boarder = models.BooleanField(default=False)
     address = models.CharField(max_length=100, null=False)
     grade_at_enrol = models.CharField(max_length=20, null=False)
     student_class = models.CharField(max_length=20, null=False)
@@ -76,13 +76,30 @@ class Account(models.Model):
         related_name='account',
         on_delete=models.CASCADE
     )
-    debit = models.IntegerField(default=0)
-    credit = models.IntegerField(default=0)
-    balance = models.IntegerField(default=0)
+    debit = models.IntegerField()
+    credit = models.IntegerField()
+    balance = models.IntegerField()
     account_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"account balance: {self.balance}"
+
+    def save(self, *args, **kwargs):
+        # Only initialize the debit value when the object is being created
+        # Check if the object doesn't already have a primary key.
+        if not self.pk:
+            fn = Financials.objects.get(school=self.student.school)
+            # Set `debit` value based on whether the student is onboard or not.
+            if self.student.boarder:
+                self.debit = fn.term_fee_boarding
+            else:
+                self.debit = fn.term_fee_day
+        else:
+            # We will be defining logic to update balance and account_paid
+            # based on credited amount, here.
+            pass
+
+        super().save(*args, **kwargs)
 
 
 # Model for representing a student's registered guardian
