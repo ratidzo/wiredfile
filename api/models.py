@@ -85,7 +85,7 @@ class Account(models.Model):
         return f"account balance: {self.balance}"
 
     def save(self, *args, **kwargs):
-        # Only initialize the debit value when the object is being created
+        # Only initialize the debit value when the Account is being created
         # Check if the object doesn't already have a primary key.
         if not self.pk:
             fn = Financials.objects.get(school=self.student.school)
