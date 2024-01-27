@@ -41,8 +41,8 @@ class FinancialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Financials
         fields = [
-            'term_fees_day',
-            'term_fees_boarding'
+            'term_fee_day',
+            'term_fee_boarding'
         ]
 
 
